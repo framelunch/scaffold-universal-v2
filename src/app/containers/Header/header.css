@@ -1,0 +1,55 @@
+@import "../../../styles/_variables.css";
+@import "../../../libs/easing.css";
+
+.Container {
+    padding: 20px 0 0;
+    background: var(--black);
+    border-bottom: 1px solid #161616;
+}
+
+.Menu {
+    display: flex;
+    align-items: center;
+}
+
+.Menu_Item {
+    text-align: center;
+    box-sizing: border-box;
+    height: 70px;
+    border-bottom: 4px solid var(--black);
+    transition: 0.2s var(--linear);
+    color: var(--white);
+
+    &:hover {
+        border-bottom: 4px solid var(--yellow-dark);
+        color: var(--yellow-dark);
+
+        & .Menu_Subtitle {
+            color: var(--yellow-dark);
+        }
+    }
+}
+
+.Menu_Item + .Menu_Item {
+    & .Menu_Target {
+        border-left: 1px solid var(--gray-darker);
+    }
+}
+
+.Menu_Target {
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    height: 58px;
+    box-sizing: border-box;
+}
+
+.Menu_Subtitle {
+    color: var(--gray-dark);
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 0.2rem;
+    transition: 0.2s var(--linear);
+}

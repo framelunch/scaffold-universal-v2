@@ -1,0 +1,33 @@
+@import "../libs/reset.css";
+@import "_variables.css";
+
+body {
+    background: lightblue;
+
+    @media (--sp) {
+        background: gray;
+    }
+}
+
+.button {
+    height: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+
+    &-large {
+        height: 50px;
+        font-size: 18px;
+    }
+    &-red {
+        color: #fff;
+        background-color: red;
+    }
+    &-blue {
+        color: #fff;
+        background-color: blue;
+    }
+}

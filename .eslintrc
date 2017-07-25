@@ -1,0 +1,30 @@
+{
+  "extends": ["framelunch"],
+  "rules": {
+    "object-property-newline": "off",
+    // underscore開始の変数やプロパティを禁止する 無効化 思うところあって。
+    "no-underscore-dangle": "off",
+    // 1行あたりの最大文字数 120 ただしURLとかコメントとか改行で区切りづらいネタは見逃す
+    "max-len": ["error", 120, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": true,
+      "ignoreRegExpLiterals": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true
+    }],
+    // 未使用変数引数 警告
+    "no-unused-vars": ["warn", {
+      // catchで拾ったエラーは見逃す ホントは処理させないといけないthrowを投げるべきかな・・・
+      "caughtErrors": "none",
+      // 変数の先頭に_の場合見逃す
+      "varsIgnorePattern": "^_",
+      // 引数の先頭に_の場合見逃す
+      "argsIgnorePattern": "^_"
+    }],
+    // 1ファイルに付きexportしてるのが1つだけの場合、default exportにしてもらう 無効化 ほっといてくれと。
+    "import/prefer-default-export": "off",
+    // アローファンクションの引数をカッコで囲むか 必要なときだけ
+    "arrow-parens": ["error", "as-needed"],
+    "react/no-multi-comp": "on"
+  }
+}

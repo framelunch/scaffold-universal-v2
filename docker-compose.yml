@@ -1,0 +1,6 @@
+mongo:
+  image: mvertes/alpine-mongo:latest
+  restart: always
+  mem_limit: 100MB
+  ports:
+    - "27018:27017"

@@ -21,10 +21,7 @@
       // 引数の先頭に_の場合見逃す
       "argsIgnorePattern": "^_"
     }],
-    // 1ファイルに付きexportしてるのが1つだけの場合、default exportにしてもらう 無効化 ほっといてくれと。
-    "import/prefer-default-export": "off",
     // アローファンクションの引数をカッコで囲むか 必要なときだけ
-    "arrow-parens": ["error", "as-needed"],
-    "react/no-multi-comp": "on"
+    "arrow-parens": ["error", "as-needed"]
   }
 }

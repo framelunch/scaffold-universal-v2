@@ -15,7 +15,6 @@ module.exports = {
   mongo: {
     uri: MONGODB_URI,
     options: {
-      //useMongoClient: true,
       db: { safe: true },
     },
   },

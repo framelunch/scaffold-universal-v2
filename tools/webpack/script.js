@@ -40,7 +40,7 @@ const createConfig = option => (
                   targets: {browsers: browserslist},
                   useBuiltIns: true,
                   modules: process.env.NODE_ENV === 'production' ? false : 'commonjs',
-                  debug: process.env.NODE_ENV === 'development'
+                  //debug: process.env.NODE_ENV === 'development' //なんかうっとおしいのでコメントアウト、、
                 }]
               ],
               plugins: [

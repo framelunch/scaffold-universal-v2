@@ -17,21 +17,10 @@ const hmr = require('./plugins/hmr');
 const codeSplitting = require('./plugins/codeSplitting');
 const bootstrapChunk = require('./plugins/bootstrapChunk');
 
-const SRC_DIR = path.join(__dirname, '../../src/app');
-const DIST_DIR = path.join(__dirname, '../../build/app');
-const DEFAULTS = {
-  name: '',
-  revision: false,
-  node: false,
-  sourceMap: false,
-  hot: false,
-  optimize: false,
-  extractCss: false,
-  stats: false,
-  codeSplitting: true,
-  bootstrapChunk: false,
-  publicPath: ''
-};
+const conf = require('../config').webpack.app;
+const SRC_DIR = conf.src;
+const DIST_DIR = conf.dist;
+const DEFAULTS = conf.defaults;
 
 const createConfig = options => {
   options = Object.assign({}, DEFAULTS, options);
@@ -47,6 +36,8 @@ const createConfig = options => {
         'react-dom',
         'react-redux',
         'react-router-dom',
+        'react-helmet',
+        'react-hot-loader',
         'redux',
         'redux-actions',
         'redux-observable',

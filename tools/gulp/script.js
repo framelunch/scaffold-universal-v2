@@ -3,6 +3,7 @@ const plumber = require('gulp-plumber');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const conf = require('../config');
+const browser = require('browser-sync');
 
 const confScript = require('../webpack/script');
 //const confApp = require('../webpack/app');
@@ -12,20 +13,8 @@ gulp.task('script', () => (
   plumber()
     .pipe(webpackStream(confScript.development, webpack))
     .pipe(gulp.dest(`${conf.dest.dev}`))
+    .pipe(browser.reload({ stream: true }))
 ));
-
-/*
-gulp.task('script.app', () => (
-  plumber()
-    .pipe(webpackStream(confApp.development, webpack))
-    .pipe(gulp.dest(`${conf.dest.dev}`))
-));
-gulp.task('script.server', () => (
-  plumber()
-    .pipe(webpackStream(confServer.development, webpack))
-    .pipe(gulp.dest(`${conf.dest.dev}`))
-));
-*/
 
 gulp.task('b.script', () => (
   webpackStream(confScript.production, webpack)

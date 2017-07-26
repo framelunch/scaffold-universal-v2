@@ -10,10 +10,16 @@
     "> 1%",
     "last 4 versions",
     "Firefox ESR",
-    "not ie < 9"
+    "not ie < 10"
   ],
   "scripts": {
     "start": "NODE_ENV=development gulp",
+    "gulp:clean": "gulp clean",
+    "gulp:view": "NODE_ENV=development gulp view",
+    "gulp:style": "NODE_ENV=development gulp style",
+    "gulp:script": "NODE_ENV=development gulp script",
+    "gulp:app": "NODE_ENV=development gulp script.app",
+    "gulp:server": "NODE_ENV=development gulp script.server",
     "lint": "run-p lint:*",
     "lint:style": "stylelint 'src/**/*.css'",
     "lint:script": "eslint --ext .js,.jsx src/",

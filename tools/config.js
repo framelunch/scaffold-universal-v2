@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const { PORT } = process.env;
 
 module.exports = {
@@ -37,18 +38,34 @@ module.exports = {
 
   style: {
     src: ['src/styles/**/*.css', '!src/styles/**/_*'],
-    watch: ['src/styles/**/*.css', 'src/libs/**/*.css']
+    watch: ['src/styles/**/*.css']
   },
 
   script: {
     src: ['src/scripts/**/*.{js,jsx}', '!src/scripts/**/_*'],
     watch: {
-      script: ['src/scripts/**/*', 'src/libs/**/*.js']
+      script: ['src/scripts/**/*']
     }
   },
 
   webpack: {
-
+    app: {
+      src: path.join(__dirname, '../src/app'),
+      dist: path.join(__dirname, '../build/app'),
+      defaults: {
+        name: '',
+        revision: false,
+        node: false,
+        sourceMap: false,
+        hot: false,
+        optimize: false,
+        extractCss: false,
+        stats: false,
+        codeSplitting: true,
+        bootstrapChunk: false,
+        publicPath: ''
+      }
+    }
   },
 
   browser: {
@@ -61,16 +78,18 @@ module.exports = {
   nodemon: {
     script: 'src/server.js',
     ext: 'js',
-    ignore: [
-      'src/app/**/*',
-      'src/libs/**/*',
-      'src/scripts/**/*',
-      'src/styles/**/*',
-      'src/assets/**/*'
-    ],
     execMap: {
       js: "node"
     },
-    watch: ['src/**/*']
+    // FIXME: watchにsrc/appディレクトリを含めるとHMRがリロードしまくってひどい感じに
+    watch: [
+      'src/server.js',
+      'src/routes/**/*',
+      'src/models/**/*',
+      'src/config/**/*',
+      'src/auth/**/*',
+      'src/api/**/*',
+      'src/helpers/**/*'
+    ]
   }
 };

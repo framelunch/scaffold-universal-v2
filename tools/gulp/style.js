@@ -11,6 +11,7 @@ const nthChildFix = require('postcss-nth-child-fix');
 const url = require('postcss-url');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
+const browser = require('browser-sync');
 
 const conf = require('../config');
 
@@ -33,6 +34,7 @@ gulp.task('style', () => (
       autoprefixer,
     ]))
     .pipe(gulp.dest(`${conf.dest.dev}/css`))
+    .pipe(browser.reload({ stream: true }))
 ));
 
 gulp.task('b.style', () => (

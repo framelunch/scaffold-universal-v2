@@ -5,6 +5,7 @@ import 'rxjs';
 
 import React from 'react';
 import { Provider } from 'react-redux';
+import Helmet from 'react-helmet';
 
 import Header from './containers/Header';
 import Footer from './containers/Footer';
@@ -33,6 +34,13 @@ export default class App extends React.Component<void, AppProps, void> {
     return (
       <Provider store={this.store}>
         <RoutePublisher routes={routeConfig} store={this.store}>
+          <Helmet defaultTitle="RMT">
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={process.env.DOMAIN} />
+            <meta property="og:site_name" content="RMT" />
+            <meta property="og:image" content="" />
+          </Helmet>
+
           <Header />
 
           <Route component={Top} route="top" />

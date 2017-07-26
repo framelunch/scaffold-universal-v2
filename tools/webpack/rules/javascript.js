@@ -1,3 +1,5 @@
+const { browserslist } = require('../../../package.json');
+
 module.exports = include => {
   return {
     test: /\.(js|jsx)$/,
@@ -7,9 +9,9 @@ module.exports = include => {
       options: {
         presets: [
           ['env', {
+            targets: {browsers: browserslist},
             useBuiltIns: true,
             modules: process.env.NODE_ENV === 'production' ? false : 'commonjs',
-            debug: process.env.NODE_ENV === 'development'
           }],
           'react',
           'flow'

@@ -2,6 +2,7 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
+import Helmet from 'react-helmet';
 import serialize from 'serialize-javascript';
 import config from '../config';
 import { fetchRoute } from './components/RoutePublisher';
@@ -82,12 +83,14 @@ export default ({ clientStats }: any) => {
 
         const js = getJs(stats);
         const css = getCss(stats);
+        const head = Helmet.renderStatic();
 
-        // TODO: router-helmetを使ってmeta情報も正しくセットアップ
+        // FIXME: router-helmetを使ってmeta情報も正しくセットアップ
         return res.render('_app', {
           conf: {
-            title : 'app | universal application',
-            description : 'spa page',
+            isApp: true,
+            title: head.title.toString(),
+            meta: head.meta.toString(),
             style: ['/css/default.css'].concat(css),
             script: [].concat(js)
           },

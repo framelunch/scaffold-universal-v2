@@ -20,6 +20,7 @@ if (SEED === 'true') seed();
 configExpress(app);
 configRoutes(app);
 
+
 server.listen(PORT);
 server.on('listening', () => {
   console.log(`Express server listening on ${PORT}, in ${NODE_ENV} mode`);

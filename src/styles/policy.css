@@ -2,7 +2,7 @@
 @import "_variables.css";
 
 body {
-    background: lightblue;
+    background: darkolivegreen;
 
     @media (--sp) {
         background: gray;

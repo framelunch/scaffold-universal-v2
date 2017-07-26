@@ -1,5 +1,9 @@
 @import "../../../styles/_variables.css";
 
 .Footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
     border-top: 1px solid var(--gray-lighter);
 }

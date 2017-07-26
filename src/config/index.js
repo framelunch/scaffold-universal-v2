@@ -4,11 +4,11 @@ module.exports = {
   userRoles: ['guest', 'user', 'admin'], // 配列の順番で権限の序列がある
 
   session: {
-    secrets: 'race-management-tool-2017',
+    secrets: 'scaffold-universal',
     expire: 60 * 60 * 24 * 7,
   },
   cookie: {
-    LOGIN_TOKEN: 'race-management-tool',
+    LOGIN_TOKEN: 'scaffold-universal-token',
   },
 
   // Mongo

@@ -22,9 +22,11 @@ class Users extends React.Component<void, UsersProps, void> {
           <meta property="og:description" content="Users page" />
         </Helmet>
 
-        <ul>
-          {(this.props.data || []).map(({ name }, i) => <li key={i.toString()}>{name}</li>)}
-        </ul>
+        <div className="mt20 mb20">
+          <ul>
+            {(this.props.data || []).map(({ name }, i) => <li className="h3 mb10" key={i.toString()}>{name}</li>)}
+          </ul>
+        </div>
       </div>
     );
   }

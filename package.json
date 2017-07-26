@@ -27,6 +27,18 @@
     "test": "NODE_ENV=test ava",
     "test:watch": "npm t -- -w"
   },
+  "private": true,
+  "ava": {
+    "files": [
+      "test/**/*.test.{js,jsx}"
+    ],
+    "verbose": true,
+    "babel": "inherit",
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ]
+  },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
     "ava": "^0.21.0",

@@ -42,6 +42,18 @@ const createConfig = options => {
     name,
     context: SRC_DIR,
     entry: {
+      vendor: [
+        'react',
+        'react-dom',
+        'react-redux',
+        'react-router-dom',
+        'redux',
+        'redux-actions',
+        'redux-observable',
+        'isomorphic-fetch',
+        'rxjs',
+        'animejs',
+      ],
       [name]: hot
         ? [
           'react-hot-loader/patch',

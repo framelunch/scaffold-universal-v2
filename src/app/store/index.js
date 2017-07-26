@@ -11,7 +11,8 @@ import type { UsersState } from './users';
 export type Action = {
   type: string,
   payload: any,
-  error: boolean
+  meta: any,
+  error: boolean,
 };
 export type AppState = {
   signIn: SignInState,

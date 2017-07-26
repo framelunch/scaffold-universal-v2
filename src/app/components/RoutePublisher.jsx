@@ -6,7 +6,7 @@ import State from '../../libs/core/State';
 export type RouteData = {
   path: string,
   target: string,
-  fetch?: any,
+  fetches?: Array<any>|null,
   match?: any
 };
 export type RouteDataList = Array<RouteData>;
@@ -35,18 +35,26 @@ export function fetchRoute(url: string, routes: RouteDataList): FetchRouteResult
 
 type RoutePublisherProps = {
   location: any,
-  routes: RouteDataList
+  routes: RouteDataList,
+  store: any,
+  children: Array<any>
 };
 
 class RoutePublisher extends React.Component<void, RoutePublisherProps, void> {
   render() {
-    const { location, routes } = this.props;
+    const { location, routes, store } = this.props;
     const { route, match } = fetchRoute(location.pathname, routes);
 
     if (route) {
+      // route-configで定義されているfetchesはここに集約する
+      // FIXME: tokenをどうやって渡そうかな -> state.signIn.tokenに保持する
+      const fetches = route.fetches || [];
+      fetches.map((fetch) => fetch(store, match));
+
       targetRoute = route;
-      state.change(route.target, match ? [match.params] : null);
-      return null;
+      state.change(route.target, [match]);
+
+      return <div>{this.props.children}</div>;
     }
 
     targetRoute = routes[0];

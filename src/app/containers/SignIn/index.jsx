@@ -3,7 +3,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signInEnter } from '../../store/signIn';
-import { STATUS_PROGRESS } from '../../store';
+import { STATUS_PROGRESS, STATUS_FINISHED } from '../../store';
 import style from './signIn.css';
 
 import type { AppState } from '../../store';
@@ -39,10 +39,10 @@ class SignIn extends React.Component<void, SignInProps, LocalState> {
   }
 
   render() {
-    const { data, onEnter } = this.props;
+    const { status, onEnter } = this.props;
     const { email, password } = this.state;
 
-    if (data) {
+    if (status === STATUS_FINISHED) {
       return <Redirect to="/" />;
     }
 

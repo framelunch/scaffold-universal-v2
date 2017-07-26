@@ -12,6 +12,7 @@ export type SignInState = {
   status: number,
   error: string | null,
   data: User | null,
+  token: string | null,
 };
 
 export const SIGNIN_ENTER = 'signInEnter';
@@ -23,6 +24,14 @@ export const signInEnter = createAction(SIGNIN_ENTER, (email, password) => ({ em
 export const signInResult = createAction(SIGNIN_RESULT, result => result);
 export const signInMe = createAction(SIGNIN_ME, result => result);
 export const signOut = createAction(SIGNOUT);
+
+// server.jsxからしか呼れない
+export function fetchMe({ dispatch, getState }: any) {
+  const { signIn: { token, status } } = getState();
+  if (token && status !== STATUS_FINISHED) {
+    return getMe(token).then(result => dispatch(signInMe(result)));
+  }
+}
 
 export const epics = [
   (action$: any) => (
@@ -68,11 +77,12 @@ export const reducer = handleActions({
     }
     return {
       ...state,
-      status: STATUS_FINISHED,
+      token: payload.token
     };
   },
   [SIGNIN_ME]: (state: SignInState, { payload }: Action) => ({
     ...state,
     data: payload,
+    status: STATUS_FINISHED,
   }),
-}, { status: 0, data: null, error: null });
+}, { status: 0, data: null, error: null, token: null });

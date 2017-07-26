@@ -1,8 +1,9 @@
 // @flow
 import { createAction, handleActions } from 'redux-actions';
 import { getUsers } from '../helpers/fetches';
-import { STATUS_READY, STATUS_FINISHED } from './index';
+import { STATUS_FINISHED } from './index';
 
+import type {Dispatch} from "redux";
 import type { Action } from './';
 
 export type User = {
@@ -15,24 +16,20 @@ export type UsersState = {
   data: Users
 };
 
-export const USERS_START_FETCH = 'usersStartFetch';
 export const USERS_RESULT = 'usersResult';
 
 export const usersResult = createAction(USERS_RESULT, (users: Users): Users => users);
-export const usersStartFetch = createAction(USERS_START_FETCH);
 
-export const epics = [
-  (action$: Observable<any>) => (
-    action$.ofType(USERS_START_FETCH)
-      .switchMap(() => getUsers())
-      .map(result => usersResult(result))),
-];
+export function fetchUsers({ dispatch, getState }: any) {
+  const { users } = getState();
+  if (users.status !== STATUS_FINISHED) {
+    return getUsers().then(result => dispatch(usersResult(result)));
+  }
+}
+
+export const epics = [];
 
 export const reducer = handleActions({
-  [USERS_START_FETCH]: (): UsersState => ({
-    status: STATUS_READY,
-    data: [],
-  }),
   [USERS_RESULT]: (state: UsersState, action: Action): UsersState => ({
     status: STATUS_FINISHED,
     data: [

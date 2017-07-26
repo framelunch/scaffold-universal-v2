@@ -73,7 +73,7 @@ class Route extends React.Component<void, RouteProps, RouteState> {
 
     return (
       <div ref={elm => (this.container = elm)}>
-        { React.createElement(this.props.component) }
+        { React.createElement(this.props.component, {route: this.props.route}) }
       </div>
     );
   }

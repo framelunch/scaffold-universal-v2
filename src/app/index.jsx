@@ -32,8 +32,7 @@ export default class App extends React.Component<void, AppProps, void> {
   render() {
     return (
       <Provider store={this.store}>
-        <div>
-          <RoutePublisher routes={routeConfig} />
+        <RoutePublisher routes={routeConfig} store={this.store}>
           <Header />
 
           <Route component={Top} route="top" />
@@ -41,7 +40,7 @@ export default class App extends React.Component<void, AppProps, void> {
           <Route component={SignIn} route="signin" />
 
           <Footer />
-        </div>
+        </RoutePublisher>
       </Provider>
     );
   }

@@ -1,9 +1,9 @@
-# RACE MANAGEMENT TOOL
+# SCAFFOLD FOR UNIVERSAL
 
 ## Motivation
 
-- Universal Javascript環境を使ったWeb Applicationを構築する
-- 馬主向けの有料サービスとする
+- Universal Javascript環境を使ったWeb Application開発のためのフルスタックな雛形を作りたい
+- Javascriptのエッジな人たちに追いつきたい
 
 ## Important Technology
 

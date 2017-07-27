@@ -3,8 +3,9 @@
 .SignIn {
     width: 100%;
     max-width: 400px;
-    @media(--sp) {
+    margin: 30px auto;
+
+    @media (--sp) {
         max-width: 100%;
     }
-    margin: 30px auto;
 }

@@ -4,8 +4,10 @@
 @import "./_utils.css";
 
 body {
-    //font-family: "Noto Serif Japanese","Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-family: 'ヒラギノ明朝 Pro W3','Hiragino Mincho Pro', "游明朝体", "Yu Mincho" , "HG明朝E", "メイリオ", Meiryo, sans-serif;
+    /*
+    font-family: "Noto Serif Japanese","Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+    */
+    font-family: "ヒラギノ明朝 Pro W3", "Hiragino Mincho Pro", "游明朝体", "Yu Mincho", "HG明朝E", "メイリオ", Meiryo, sans-serif;
 }
 
 button:disabled {
@@ -37,8 +39,8 @@ a {
     color: inherit;
 }
 
-.marcellus{
-    font-family: 'Marcellus', serif;
+.marcellus {
+    font-family: "Marcellus", serif;
 }
 
 .h1 {
@@ -103,6 +105,7 @@ a {
     transition-property: background;
     border-radius: 2px;
 }
+
 .btn-l {
     padding: 10px 20px;
     font-size: 1.6rem;
@@ -122,6 +125,7 @@ a {
     padding: 3px 6px;
     font-size: 1.1rem;
 }
+
 .btn-default {
     border: 1px solid var(--gray-light);
     background: #fff;
@@ -139,6 +143,7 @@ a {
         background: var(--gray-lighter);
     }
 }
+
 .btn-primary {
     border: 1px solid var(--blue-dark);
     background: var(--blue);

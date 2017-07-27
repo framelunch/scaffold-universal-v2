@@ -2,7 +2,7 @@
 import anime from 'animejs';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { state, targetRoute } from './RoutePublisher';
+import { state, getTargetRoute } from './RoutePublisher';
 
 type RouteProps = {
   route: string,
@@ -24,7 +24,7 @@ class Route extends React.Component<void, RouteProps, RouteState> {
     this.onRemove = this.onRemove.bind(this);
 
     const { route } = this.props;
-    const { target } = targetRoute || {};
+    const { target } = getTargetRoute() || {};
     this.state = { isHide: target.indexOf(route) === -1 };
   }
   componentDidMount() {
@@ -56,6 +56,7 @@ class Route extends React.Component<void, RouteProps, RouteState> {
   }
   onRemove() {
     state.wait();
+
     anime({
       targets: this.container,
       opacity: 0,
@@ -63,8 +64,8 @@ class Route extends React.Component<void, RouteProps, RouteState> {
       duration: 200,
       easing: 'easeOutQuad',
     }).finished.then(() => {
-      state.notify();
       this.setState({ isHide: true });
+      state.notify();
     });
   }
 
@@ -73,7 +74,7 @@ class Route extends React.Component<void, RouteProps, RouteState> {
 
     return (
       <div ref={elm => (this.container = elm)}>
-        { React.createElement(this.props.component, {route: this.props.route}) }
+        { React.createElement(this.props.component, { route: this.props.route }) }
       </div>
     );
   }

@@ -20,21 +20,21 @@ compiler.apply(new FriendlyErrorsWebpackPlugin());
 router.use(
   webpackDevMiddleware(compiler, {
     quiet: true,
-    publicPath: config[0].output.publicPath
-  })
+    publicPath: config[0].output.publicPath,
+  }),
 );
 router.use(
   webpackHotMiddleware(
-    compiler.compilers.find(compiler => compiler.name === 'client'),
+    compiler.compilers.find(c => c.name === 'client'),
     {
-      log: () => {}
-    }
-  )
+      log: () => {},
+    },
+  ),
 );
 router.use(
   webpackHotServerMiddleware(compiler, {
-    chunkName: 'server'
-  })
+    chunkName: 'server',
+  }),
 );
 
 module.exports = router;

@@ -31,6 +31,7 @@ export function fetchMe({ dispatch, getState }: any) {
   if (token && status !== STATUS_FINISHED) {
     return getMe(token).then(result => dispatch(signInMe(result)));
   }
+  return null;
 }
 
 export const epics = [
@@ -77,7 +78,7 @@ export const reducer = handleActions({
     }
     return {
       ...state,
-      token: payload.token
+      token: payload.token,
     };
   },
   [SIGNIN_ME]: (state: SignInState, { payload }: Action) => ({

@@ -15,7 +15,7 @@ function _getQuery({ query }) {
     ) || {};
 }
 
-exports.getUsers = function(req, res) {
+exports.getUsers = function (req, res) {
   const query = _getQuery(req);
   const sort = query.sort || '-_id';
   const select = query.select || '-salt -hashedPassword -emailActivate -facebook -twitter -google';
@@ -49,7 +49,7 @@ exports.getUsers = function(req, res) {
     });
 };
 
-exports.createUser = function(req, res) {
+exports.createUser = function (req, res) {
   const newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
@@ -62,7 +62,7 @@ exports.createUser = function(req, res) {
   });
 };
 
-exports.activateUser = function(req, res, next) {
+exports.activateUser = function (req, res, next) {
   if (req.user.emailActivate) {
     res.sendStatus(200);
   } else {
@@ -74,7 +74,7 @@ exports.activateUser = function(req, res, next) {
   }
 };
 
-exports.getUser = function(req, res, next) {
+exports.getUser = function (req, res, next) {
   const id = _getID(req);
   if (!id) {
     res.sendStatus(401);

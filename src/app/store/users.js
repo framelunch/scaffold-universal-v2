@@ -3,7 +3,6 @@ import { createAction, handleActions } from 'redux-actions';
 import { getUsers } from '../helpers/fetches';
 import { STATUS_FINISHED } from './index';
 
-import type {Dispatch} from "redux";
 import type { Action } from './';
 
 export type User = {
@@ -25,6 +24,7 @@ export function fetchUsers({ dispatch, getState }: any) {
   if (users.status !== STATUS_FINISHED) {
     return getUsers().then(result => dispatch(usersResult(result)));
   }
+  return null;
 }
 
 export const epics = [];

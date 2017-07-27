@@ -2,7 +2,7 @@ const passport = require('passport');
 const { Strategy } = require('passport-local');
 const User = require('../../models/User');
 
-module.exports = function() {
+module.exports = function () {
   passport.use(new Strategy({
     usernameField: 'email',
     passwordField: 'password', // this is the virtual field on the model
@@ -26,4 +26,4 @@ module.exports = function() {
       return done(null, user);
     });
   }));
-}
+};

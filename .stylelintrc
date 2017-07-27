@@ -9,6 +9,6 @@
     "src/libs/**/*"
   ],
   "rules": {
-    "selector-max-specificity": 3
+    "selector-max-specificity": "0,2,0"
   }
 }

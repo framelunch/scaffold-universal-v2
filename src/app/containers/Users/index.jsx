@@ -11,6 +11,10 @@ export type UsersProps = UsersState & {
 };
 
 class Users extends React.Component<void, UsersProps, void> {
+  constructor(props: UsersProps) {
+    super(props);
+    console.log(props);
+  }
   render() {
     return (
       <div className="mod-Container">

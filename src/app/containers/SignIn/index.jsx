@@ -84,7 +84,7 @@ class SignIn extends React.Component<void, SignInProps, LocalState> {
             />
             <button
               className="btn btn-m btn-primary"
-              onClick={e => onEnter(email, password)}
+              onClick={() => onEnter(email, password)}
             >ENTER</button>
           </div>
         </div>

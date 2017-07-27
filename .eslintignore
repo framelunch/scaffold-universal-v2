@@ -3,3 +3,5 @@ node_modules/**
 build/**
 tools/**
 src/libs/**
+src/routes/webpack.js
+src/routes/static.js

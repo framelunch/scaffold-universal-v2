@@ -15,6 +15,10 @@ type SignInDispatch = {
 type SignInProps = SignInState & SignInDispatch;
 
 class Header extends React.Component<void, SignInProps, void> {
+  constructor(props: SignInProps) {
+    super(props);
+    console.log('header');
+  }
   render() {
     const { onSignOut } = this.props;
     let sign = null;

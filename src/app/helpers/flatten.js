@@ -1,1 +1,1 @@
-export default arr => [].concat.apply([], arr);
+export default arr => [...arr];

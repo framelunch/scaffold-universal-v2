@@ -14,7 +14,7 @@ render(
       <App store={store} />
     </AppContainer>
   </BrowserRouter>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );
 
 /* eslint-disable */

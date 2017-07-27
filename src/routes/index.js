@@ -1,6 +1,5 @@
-//import ssr from './app/ssr';
 const error = require('../helpers/error');
-const user =  require('../api/user');
+const user = require('../api/user');
 const auth = require('../auth');
 
 const { NODE_ENV } = process.env;

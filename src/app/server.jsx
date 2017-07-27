@@ -34,7 +34,7 @@ function getCssByChunkName(name, { assetsByChunkName }) {
 function getJs(stats) {
   return [
     getJsByChunkName('vendor', stats),
-    getJsByChunkName('client', stats)
+    getJsByChunkName('client', stats),
   ].filter(isTruthy);
 }
 
@@ -78,7 +78,7 @@ export default ({ clientStats }: any) => {
         const stats = {
           modulesById,
           chunksById,
-          assetsByChunkName
+          assetsByChunkName,
         };
 
         const js = getJs(stats);
@@ -92,11 +92,11 @@ export default ({ clientStats }: any) => {
             title: head.title.toString(),
             meta: head.meta.toString(),
             style: ['/css/default.css'].concat(css),
-            script: [].concat(js)
+            script: [].concat(js),
           },
           component,
           appState: serialize(store.getState()),
         });
       });
-  }
-}
+  };
+};

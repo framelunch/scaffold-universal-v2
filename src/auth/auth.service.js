@@ -10,7 +10,7 @@ const validateJwt = expressJwt({ secret: config.session.secrets });
  * Attaches the user object to the request if authenticated
  * Otherwise returns 403
  */
-exports.verify = function() {
+exports.verify = function () {
   return compose()
     .use((req, res, next) => {
       // allow access_token to be passed through query parameter as well
@@ -24,7 +24,7 @@ exports.verify = function() {
       return next(req, res, next);
     });
 };
-exports.isAuthenticated = function() {
+exports.isAuthenticated = function () {
   return compose()
     .use(exports.verify())
     .use((req, res, next) => {
@@ -41,7 +41,7 @@ exports.isAuthenticated = function() {
 /**
  * Checks if the user role meets the minimum requirements of the route
  */
-exports.hasRole = function(roleRequired) {
+exports.hasRole = function (roleRequired) {
   if (!roleRequired) throw new Error('Required role needs to be set');
   return compose()
     .use(exports.isAuthenticated())
@@ -57,7 +57,7 @@ exports.hasRole = function(roleRequired) {
 /**
  * For activation, to change email
  */
-exports.sign = function(obj, expire) {
+exports.sign = function (obj, expire) {
   return jwt.sign(
     obj,
     config.session.secrets,
@@ -68,7 +68,7 @@ exports.sign = function(obj, expire) {
 /**
  * Returns a jwt token signed by the app secret
  */
-exports.signToken = function(id, role) {
+exports.signToken = function (id, role) {
   /**
    * Tokenに有効期限を持たせないようにしている
    */
@@ -82,10 +82,10 @@ exports.signToken = function(id, role) {
 /**
  * Set token cookie directly for oAuth strategies
  */
-exports.setTokenCookie = function(req, res) {
+exports.setTokenCookie = function (req, res) {
   if (!req.user) {
     return res.status(404).json({ message: 'Something went wrong, please try again.' });
   }
   res.cookie(config.cookie.token, exports.signToken(req.user._id, req.user.role));
-  res.redirect('/');
+  return res.redirect('/');
 };

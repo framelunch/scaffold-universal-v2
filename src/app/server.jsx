@@ -4,12 +4,13 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import serialize from 'serialize-javascript';
-import config from '../config';
 import { fetchRoute } from './components/RoutePublisher';
 import { initStore } from './store';
 import { signInResult, fetchMe } from './store/signIn';
 import routes from './route-config';
 import App from './';
+
+const { COOKIE_LOGIN_TOKEN } = process.env;
 
 function isTruthy(val) {
   return !!val;
@@ -63,7 +64,7 @@ export default ({ clientStats }: any) => {
     fetches.push(fetchMe);
 
     // tokenがある場合は、state.signIn.tokenに格納する
-    const token = req.cookies[config.cookie.LOGIN_TOKEN];
+    const token = req.cookies[COOKIE_LOGIN_TOKEN];
     if (token) store.dispatch(signInResult({ token }));
 
     Promise
@@ -91,7 +92,7 @@ export default ({ clientStats }: any) => {
             isApp: true,
             title: head.title.toString(),
             meta: head.meta.toString(),
-            style: ['/css/default.css'].concat(css),
+            style: ['default.css'].concat(css),
             script: [].concat(js),
           },
           component,

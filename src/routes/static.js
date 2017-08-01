@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 
-const DIST_DIR = path.join(__dirname, '../../dist');
+const DIST_DIR = path.join(__dirname, '../../build');
 const SERVER_RENDERER_PATH = path.join(DIST_DIR, 'server.js');
 const STATS_PATH = path.join(DIST_DIR, 'client-stats.json');
 const router = express.Router();
@@ -25,12 +25,6 @@ try {
   );
 }
 
-router.use(express.static(DIST_DIR, { maxAge: 0 }));
-
-router.use(
-  serverRenderer({
-    clientStats: stats
-  })
-);
+router.use(serverRenderer({ clientStats: stats }));
 
 module.exports = router;

@@ -9,10 +9,7 @@ const conf = require('../config');
 
 gulp.task('clean', cb => rimraf(conf.dest.dev, {}, cb));
 gulp.task('b.clean', cb => rimraf(conf.dest.build, {}, cb));
-gulp.task('copy.static', () => {
-  return gulp.src(conf.copy.static)
-    .pipe(gulp.dest(`${conf.dest.build}`));
-});
+
 gulp.task('copy.assets', () => {
   return gulp.src(conf.copy.assets)
     .pipe(gulpif('*.{png,jpg,gif}', imagemin()))
@@ -59,8 +56,7 @@ gulp.task('default', ['dev'], () => {
 gulp.task('build', function (cb) {
   return runSequence(
     'b.clean',
-    ['b.style', 'b.script'],
-    ['copy.static', 'copy.assets'],
+    ['b.view', 'b.style', 'b.script', 'b.app', 'copy.assets'],
     cb
   );
 });

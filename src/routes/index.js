@@ -17,8 +17,8 @@ module.exports = app => {
   app.use('/auth', auth);
 
   // All undefined asset or api routes should return a 404
-  app.route('/:url(api|auth|assets|js|css)/*')
-    .all(error[404]);
+  // TODO: JS, CSSファイルがない場合も404にしたいが、HMRの場合、webpackがファイルを提供しているので、ここで404判定できない
+  app.route(['/:url(api|auth|assets)/*', '/*.(txt|xml)']).all(error[404]);
 
   /*
   app.route('/console*')

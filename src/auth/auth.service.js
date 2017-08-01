@@ -4,7 +4,8 @@ const compose = require('composable-middleware');
 const User = require('../models/User');
 const config = require('../config');
 
-const validateJwt = expressJwt({ secret: config.session.secrets });
+const { TOKEN_SECRET, TOKEN_EXPIRE, COOKIE_LOGIN_TOKEN } = process.env;
+const validateJwt = expressJwt({ secret: TOKEN_SECRET });
 
 /**
  * Attaches the user object to the request if authenticated
@@ -60,8 +61,8 @@ exports.hasRole = function (roleRequired) {
 exports.sign = function (obj, expire) {
   return jwt.sign(
     obj,
-    config.session.secrets,
-    { expiresIn: expire || config.session.expire },
+    TOKEN_SECRET,
+    { expiresIn: expire || TOKEN_EXPIRE },
   );
 };
 
@@ -74,8 +75,8 @@ exports.signToken = function (id, role) {
    */
   return jwt.sign(
     { _id: id, role },
-    config.session.secrets,
-    { expiresIn: config.session.expire },
+    TOKEN_SECRET,
+    { expiresIn: TOKEN_EXPIRE },
   );
 };
 
@@ -86,6 +87,6 @@ exports.setTokenCookie = function (req, res) {
   if (!req.user) {
     return res.status(404).json({ message: 'Something went wrong, please try again.' });
   }
-  res.cookie(config.cookie.token, exports.signToken(req.user._id, req.user.role));
+  res.cookie(COOKIE_LOGIN_TOKEN, exports.signToken(req.user._id, req.user.role));
   return res.redirect('/');
 };

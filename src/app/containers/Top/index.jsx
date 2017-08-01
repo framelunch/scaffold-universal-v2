@@ -17,8 +17,8 @@ const Top = () => (
     <div className={style.SignIn}>
       <h1 className="h1 mt20">TOP PAGE</h1>
       <div className="mt20 mb20">
-        <p>top page aaaa</p>
         <p>top page</p>
+        <p>top page aa aa</p>
       </div>
     </div>
   </div>

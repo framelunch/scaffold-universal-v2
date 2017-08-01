@@ -71,6 +71,7 @@
 |    |- /helpers/           # ヘルパーモジュール
 |    |- /libs/              # オリジナルライブラリ群
 |    |- /models/            # mongooseのモデルスキーマ
+|    |- /public/            # 静的ファイル置き場
 |    |- /routes/            # サーバーサイドのルーティング設定
 |    |- /scripts/           # Javascriptのエントリーディレクトリ
 |    |- /styles/            # CSSのエントリーディレクトリ

@@ -20,10 +20,11 @@ module.exports = app => {
   app.use(methodOverride());
   app.use(cookieParser());
 
-  app.use(express.static(root));
   app.use(favicon(path.join(root, 'favicon.ico')));
+  app.use(express.static(path.join(root, 'public')));
 
   if (NODE_ENV === 'production') {
+    app.use(express.static(path.join(root, '../build')));
     app.use(morgan('combined'));
   } else {
     /**
@@ -35,6 +36,7 @@ module.exports = app => {
       next();
     });
 
+    app.use(express.static(root));
     app.use(express.static('.tmp'));
     app.use(morgan('dev'));
   }

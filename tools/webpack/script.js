@@ -19,7 +19,7 @@ const createConfig = option => (
   {
     entry,
     output: {
-      filename: 'js/[name].js'
+      filename: '[name].js'
     },
     resolve: {
       modules: [
@@ -64,7 +64,7 @@ exports.development = createConfig({
   devtool: 'inline-source-map',
   plugins: [
     new webpack.LoaderOptionsPlugin({ debug: true }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'js/vendor.script.js' }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.script.js' }),
   ]
 });
 exports.production = createConfig({
@@ -73,7 +73,7 @@ exports.production = createConfig({
   plugins: [
     new webpack.LoaderOptionsPlugin({ debug: false }),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': "'production'" }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'js/vendor.script.js' }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.script.js' }),
     new UglifyJs(),
   ]
 });

@@ -6,8 +6,6 @@ const conf = require('../config');
 const browser = require('browser-sync');
 
 const confScript = require('../webpack/script');
-//const confApp = require('../webpack/app');
-//const confServer = require('../webpack/server');
 
 gulp.task('script', () => (
   plumber()
@@ -18,5 +16,16 @@ gulp.task('script', () => (
 
 gulp.task('b.script', () => (
   webpackStream(confScript.production, webpack)
-    .pipe(gulp.dest(`${conf.dest.build}/js`))
+    .pipe(gulp.dest(`${conf.dest.build}`))
 ));
+
+const confApp = require('../webpack/app');
+const tasks = confApp.production.map((_conf) => {
+  const name = `b.app.${_conf.name}`;
+  gulp.task(name, () => (
+    webpackStream(_conf, webpack)
+      .pipe(gulp.dest(`${conf.dest.build}`))
+  ));
+  return name;
+});
+gulp.task('b.app', tasks);

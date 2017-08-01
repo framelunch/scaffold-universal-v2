@@ -33,7 +33,7 @@ gulp.task('style', () => (
       url(urlOptions),
       autoprefixer,
     ]))
-    .pipe(gulp.dest(`${conf.dest.dev}/css`))
+    .pipe(gulp.dest(`${conf.dest.dev}`))
     .pipe(browser.reload({ stream: true }))
 ));
 
@@ -49,5 +49,5 @@ gulp.task('b.style', () => (
       autoprefixer,
       cssnano,
     ]))
-    .pipe(gulp.dest(`${conf.dest.build}/css`))
+    .pipe(gulp.dest(`${conf.dest.build}`))
 ));

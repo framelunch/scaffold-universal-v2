@@ -1,8 +1,12 @@
 const webpack = require('webpack');
 
+// TODO: デフォルトのUglifyJsPluginはES6に対応していない
+const Uglify = require("uglifyjs-webpack-plugin");
+
 module.exports = ({ optimize, sourceMap }) =>
   (optimize ? [
-      new webpack.optimize.UglifyJsPlugin({
+      //new webpack.optimize.UglifyJsPlugin({
+      new Uglify({
         compress: {
           screw_ie8: true,
           warnings: false

@@ -9,7 +9,6 @@ module.exports = {
   },
 
   copy: {
-    static: ['src/*.*'],
     assets: ['src/assets/**/*'],
   },
 

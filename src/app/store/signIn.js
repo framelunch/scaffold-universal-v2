@@ -3,10 +3,11 @@ import cookie from 'js-cookie';
 import { createAction, handleActions } from 'redux-actions';
 import { signIn, getMe } from '../helpers/fetches';
 import { STATUS_READY, STATUS_PROGRESS, STATUS_FINISHED } from './';
-import config from '../../config';
 
 import type { Action } from './';
 import type { User } from './users';
+
+const { COOKIE_LOGIN_TOKEN } = process.env;
 
 export type SignInState = {
   status: number,
@@ -40,7 +41,7 @@ export const epics = [
       .switchMap(({ payload }: Action): Promise<any> => signIn(payload))
       .do(result => {
         if (!(result instanceof Error)) {
-          cookie.set(config.cookie.LOGIN_TOKEN, result.token);
+          cookie.set(COOKIE_LOGIN_TOKEN, result.token);
         }
       })
       .map(result => signInResult(result))
@@ -53,7 +54,7 @@ export const epics = [
   ),
   (action$: any) => (
     action$.ofType(SIGNOUT)
-      .do(() => cookie.remove(config.cookie.LOGIN_TOKEN))
+      .do(() => cookie.remove(COOKIE_LOGIN_TOKEN))
       .ignoreElements()
   ),
 ];

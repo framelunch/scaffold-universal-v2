@@ -1,15 +1,16 @@
+const dotenv = require('dotenv');
+
+if (process.env.NODE_ENV === 'production') {
+  // FIXME: .env.productionは本番環境ごとにリモートサーバー上で用意する。git管理しない
+  dotenv.config({ path: '.env.production' });
+} else {
+  dotenv.config();
+}
+
 const { DOMAIN, MONGODB_URI } = process.env;
 
 module.exports = {
   userRoles: ['guest', 'user', 'admin'], // 配列の順番で権限の序列がある
-
-  session: {
-    secrets: 'scaffold-universal',
-    expire: 60 * 60 * 24 * 7,
-  },
-  cookie: {
-    LOGIN_TOKEN: 'scaffold-universal-token',
-  },
 
   // Mongo
   mongo: {

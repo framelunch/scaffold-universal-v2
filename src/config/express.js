@@ -27,14 +27,15 @@ module.exports = app => {
     app.use(express.static(path.join(root, '../build')));
     app.use(morgan('combined'));
   } else {
-    /**
-     * 開発環境ではHRMとbrowsersyncを共存させるために、CORSを許可する
-     */
+    // 開発環境ではHRMとbrowsersyncを共存させるために、CORSを許可する
+    // TODO: 以下必要ないっぽい？
+    /*
     app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Headers', 'X-Requested-With');
       next();
     });
+    */
 
     app.use(express.static(root));
     app.use(express.static('.tmp'));

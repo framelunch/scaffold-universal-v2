@@ -21,6 +21,10 @@ router.use(
   webpackDevMiddleware(compiler, {
     quiet: true,
     publicPath: config[0].output.publicPath,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'X-Requested-With',
+    },
   }),
 );
 router.use(

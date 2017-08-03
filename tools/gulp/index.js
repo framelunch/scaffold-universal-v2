@@ -52,7 +52,6 @@ gulp.task('default', ['dev'], () => {
   gulp.watch(conf.script.watch.script, ['script']);
 });
 
-// TODO: build taskがまだ未実装
 gulp.task('build', function (cb) {
   return runSequence(
     'b.clean',

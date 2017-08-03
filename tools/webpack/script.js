@@ -10,7 +10,7 @@ const entry = {
 };
 
 globby.sync(conf.script.src)
-  .forEach((filename) => {
+  .forEach(filename => {
     const basename = path.basename(filename, path.extname(filename));
     entry[basename] = `./${filename}`;
   });
@@ -52,6 +52,9 @@ const createConfig = option => (
           },
         }
       ],
+    },
+    node: {
+      process: false
     },
     cache: option.cache,
     devtool: option.devtool,

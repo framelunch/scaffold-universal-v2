@@ -18,7 +18,7 @@ const Top = () => (
       <h1 className="h1 mt20">TOP PAGE</h1>
       <div className="mt20 mb20">
         <p>top page</p>
-        <p>top page aa aa</p>
+        <p>top page</p>
       </div>
     </div>
   </div>

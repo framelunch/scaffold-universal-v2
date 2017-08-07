@@ -8,6 +8,7 @@
 ## Get Start
 
 ```
+cp env.sample .env
 docker-compose up
 yarn install
 yarn start

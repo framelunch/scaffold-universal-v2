@@ -5,6 +5,14 @@
 - Universal Javascript環境を使ったWeb Application開発のためのフルスタックな雛形を作りたい
 - Javascriptのエッジな人たちに追いつきたい
 
+## Get Start
+
+```
+docker-compose up
+yarn install
+yarn start
+```
+
 ## Important Technology
 
 ### Package manager
@@ -22,12 +30,19 @@
 
 * [Webpack](https://webpack.github.io/)
     * [hot module replacement](https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack)
+
 * [babel](https://babeljs.io/)
     * [env](https://github.com/babel/babel-preset-env)
 
+* [React](https://facebook.github.io/react/)
+    * [React-Router](https://reacttraining.com/react-router/web/guides/philosophy)
+    * [Redux](http://redux.js.org/)
+
+* [RxJS](https://github.com/ReactiveX/RxJS)
+
 #### CSS
 
-* [PostCSS](http://postcss.org/) 
+* [PostCSS](http://postcss.org/)
     * [autoprefixer](https://github.com/postcss/autoprefixer)
     * [css-mqpacker](https://github.com/hail2u/node-css-mqpacker)
     * [postcss-flexbugs-fixes](https://github.com/luisrudge/postcss-flexbugs-fixes)
@@ -65,22 +80,18 @@
 |         |- server.jsx       # サーバーサイドのエントリーポイント
 |    |- /assets/            # 画像など静的リソース
 |    |- /auth/              # 認証系のAPI
-|    |- /config             # where we do the bulk of our apps configuration
-|         |- /environment/  # configuration specific to the node environment
-|         |- /express.js    # setting for express framework
-|    |- /helpers/           # ヘルパーモジュール
+|    |- /etc                # 定数定義ファイル、ヘルパーモジュールなどを格納
 |    |- /libs/              # オリジナルライブラリ群
 |    |- /models/            # mongooseのモデルスキーマ
 |    |- /public/            # 静的ファイル置き場
+|         |- robots.txt
+|         |- sitemap.xml
 |    |- /routes/            # サーバーサイドのルーティング設定
 |    |- /scripts/           # Javascriptのエントリーディレクトリ
 |    |- /styles/            # CSSのエントリーディレクトリ
 |    |- /views/             # EJSのエントリーディレクトリ
 |    |- favicon.ico
 |    |- server.js           # initialize app
-|    |- routers.jsx         # URL routing
-|    |- robots.txt
-|    |- sitemap.xml
 |- /node_modules/           # 3rd-party libraries and utilities for nodeJs
 |- /tools/                  # ビルドツール関連
 |    |- /gulp/              # gulpタスクを記述したjs。タスクごとに1ファイルとする

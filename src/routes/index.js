@@ -1,5 +1,5 @@
-const error = require('../helpers/error');
-const user = require('../api/user');
+const error = require('../etc/error');
+const api = require('../api');
 const auth = require('../auth');
 
 const { NODE_ENV } = process.env;
@@ -9,23 +9,16 @@ module.exports = app => {
   /**
    * proxy setting
    */
-  app.route('/api/proxy').get((req, res) => {
+  app.route('/proxy').get((req, res) => {
 
   });
 
-  app.use('/api/users', user);
+  app.use('/api', api);
   app.use('/auth', auth);
 
   // All undefined asset or api routes should return a 404
   // TODO: JS, CSSファイルがない場合も404にしたいが、HMRの場合、webpackがファイルを提供しているので、ここで404判定できない
   app.route(['/:url(api|auth|assets)/*', '/*.(txt|xml)']).all(error[404]);
-
-  /*
-  app.route('/console*')
-    .get((req, res) => {
-      res.sendFile(`${app.get('appPath')}/.console.html`, { dotfiles: 'allow' });
-    });
-  */
 
   app.route('/*')
     .get(appServer)

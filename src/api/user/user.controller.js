@@ -1,6 +1,6 @@
 const User = require('../../models/User');
 const { signToken } = require('../../auth/auth.service');
-const { activate } = require('../../helpers/mail');
+const { activate } = require('../../etc/mail');
 const optimizeQuery = require('../../libs/utils/optimizeQuery');
 
 function _getID({ params, user }) {
@@ -9,10 +9,10 @@ function _getID({ params, user }) {
 
 function _getQuery({ query }) {
   return (
-      typeof query === 'object' && typeof query.query === 'string' ?
-        JSON.parse(decodeURIComponent(query.query)) :
-        query
-    ) || {};
+    typeof query === 'object' && typeof query.query === 'string' ?
+      JSON.parse(decodeURIComponent(query.query)) :
+      query
+  ) || {};
 }
 
 exports.getUsers = function (req, res) {

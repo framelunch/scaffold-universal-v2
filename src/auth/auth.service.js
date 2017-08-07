@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const compose = require('composable-middleware');
 const User = require('../models/User');
-const config = require('../config');
+const { USER_ROLES } = require('../etc/define');
 
 const { TOKEN_SECRET, TOKEN_EXPIRE, COOKIE_LOGIN_TOKEN } = process.env;
 const validateJwt = expressJwt({ secret: TOKEN_SECRET });
@@ -47,7 +47,7 @@ exports.hasRole = function (roleRequired) {
   return compose()
     .use(exports.isAuthenticated())
     .use((req, res, next) => {
-      if (config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)) {
+      if (USER_ROLES.indexOf(req.user.role) >= USER_ROLES.indexOf(roleRequired)) {
         next();
       } else {
         res.sendStatus(403);

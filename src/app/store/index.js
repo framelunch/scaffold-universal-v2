@@ -21,8 +21,9 @@ export type AppState = {
 
 export const STATUS_READY = 0;
 export const STATUS_PROGRESS = 1;
-export const STATUS_FINISHED = 2;
 export const STATUS_CANCELED = 3;
+export const STATUS_PROBLEM = 4;
+export const STATUS_FINISHED = 9;
 
 export const initStore = (stateData: any) => (
   createStore(

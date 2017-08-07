@@ -2,7 +2,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { signInEnter } from '../../store/signIn';
+import { signInInit, signInEnter } from '../../store/signIn';
 import { STATUS_PROGRESS, STATUS_FINISHED } from '../../store';
 import style from './signIn.css';
 
@@ -10,6 +10,7 @@ import type { AppState } from '../../store';
 import type { SignInState } from '../../store/signIn';
 
 type SignInDispatch = {
+  onInit: Function,
   onEnter: Function
 };
 type SignInProps = SignInState & SignInDispatch;
@@ -21,14 +22,15 @@ type LocalState = {
 class SignIn extends React.Component<void, SignInProps, LocalState> {
   state: LocalState;
   onChange: (e: Event) => void;
+  onEnter: () => void;
 
-  constructor(props) {
+  constructor(props: SignInProps) {
     super(props);
     this.state = { email: '', password: '' };
     this.onChange = this.onChange.bind(this);
   }
   componentWillMount() {
-
+    this.props.onInit();
   }
   onChange(e: Event & {target: HTMLInputElement}) {
     const field = e.target.dataset.field;
@@ -96,10 +98,12 @@ class SignIn extends React.Component<void, SignInProps, LocalState> {
 function mapStateToProps(state: AppState): SignInState {
   return { ...state.signIn };
 }
-
-function mapDispatchToProps(dispatch: Function): SignInDispatch {
+function mapDispatchToProps(dispatch) {
   return {
-    onEnter(email, password) {
+    onInit: () => {
+      dispatch(signInInit());
+    },
+    onEnter: (email, password) => {
       dispatch(signInEnter(email, password));
     },
   };

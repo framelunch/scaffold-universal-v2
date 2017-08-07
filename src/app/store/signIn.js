@@ -16,17 +16,19 @@ export type SignInState = {
   token: string | null,
 };
 
+export const SIGNIN_INIT = 'signInInt';
 export const SIGNIN_ENTER = 'signInEnter';
 export const SIGNIN_RESULT = 'signInResult';
 export const SIGNIN_ME = 'signInMe';
 export const SIGNOUT = 'signOut';
 
+export const signInInit = createAction(SIGNIN_INIT);
 export const signInEnter = createAction(SIGNIN_ENTER, (email, password) => ({ email, password }));
 export const signInResult = createAction(SIGNIN_RESULT, result => result);
 export const signInMe = createAction(SIGNIN_ME, result => result);
 export const signOut = createAction(SIGNOUT);
 
-// server.jsxからしか呼れない
+// server.jsxからしか呼ばれない
 export function fetchMe({ dispatch, getState }: any) {
   const { signIn: { token, status } } = getState();
   if (token && status !== STATUS_FINISHED) {
@@ -60,9 +62,7 @@ export const epics = [
 ];
 
 export const reducer = handleActions({
-  [SIGNOUT]: (state: SignInState) => ({
-    ...state,
-    data: null,
+  [SIGNIN_INIT]: () => ({
     status: STATUS_READY,
   }),
   [SIGNIN_ENTER]: (state: SignInState) => ({
@@ -73,7 +73,7 @@ export const reducer = handleActions({
     if (error) {
       return {
         ...state,
-        status: STATUS_FINISHED,
+        status: STATUS_READY,
         error: payload.message,
       };
     }
@@ -86,5 +86,10 @@ export const reducer = handleActions({
     ...state,
     data: payload,
     status: STATUS_FINISHED,
+  }),
+  [SIGNOUT]: (state: SignInState) => ({
+    ...state,
+    data: null,
+    status: STATUS_READY,
   }),
 }, { status: 0, data: null, error: null, token: null });

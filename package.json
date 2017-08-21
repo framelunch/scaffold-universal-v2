@@ -30,7 +30,9 @@
       "test/**/*.test.{js,jsx}"
     ],
     "verbose": true,
-    "babel": "inherit",
+    "babel": {
+      "presets": ["env"]
+    },
     "require": [
       "babel-register",
       "babel-polyfill"

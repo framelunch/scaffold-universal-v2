@@ -30,8 +30,17 @@ const createConfig = options => {
   return {
     name,
     context: SRC_DIR,
-    entry: {
-      vendor: [
+    entry: ((_node) => {
+      const value = {
+        [name]: hot
+            ? [
+              'react-hot-loader/patch',
+              'webpack-hot-middleware/client',
+              `./${name}.jsx`
+            ]
+            : `./${name}.jsx`
+      };
+      if (!_node) value.vendor = [
         'react',
         'react-dom',
         'react-redux',
@@ -44,15 +53,9 @@ const createConfig = options => {
         'isomorphic-fetch',
         'rxjs',
         'animejs',
-      ],
-      [name]: hot
-        ? [
-          'react-hot-loader/patch',
-          'webpack-hot-middleware/client',
-          `./${name}.jsx`
-        ]
-        : `./${name}.jsx`
-    },
+      ];
+      return value;
+    })(node),
     resolve: {
       modules: [SRC_DIR, 'node_modules'],
       extensions: ['.jsx', '.js'],

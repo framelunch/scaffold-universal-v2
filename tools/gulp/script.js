@@ -6,7 +6,6 @@ const conf = require('../config');
 const browser = require('browser-sync');
 
 const confScript = require('../webpack/script');
-
 gulp.task('script', () => (
   plumber()
     .pipe(webpackStream(confScript.development, webpack))

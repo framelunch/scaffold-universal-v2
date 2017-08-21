@@ -1,6 +1,7 @@
 const error = require('../etc/error');
 const api = require('../api');
 const auth = require('../auth');
+const graphql = require('../graphql');
 
 const { NODE_ENV } = process.env;
 const appServer = NODE_ENV === 'production' ? require('./static') : require('./webpack');
@@ -15,6 +16,7 @@ module.exports = app => {
 
   app.use('/api', api);
   app.use('/auth', auth);
+  app.use('/graphql', graphql);
 
   // All undefined asset or api routes should return a 404
   // TODO: JS, CSSファイルがない場合も404にしたいが、HMRの場合、webpackがファイルを提供しているので、ここで404判定できない

@@ -1,3 +1,5 @@
+/* eslint-disable */
+// devDependencyをrequireしてるが、productionでは使用しない
 const debug = require('debug')('app');
 const colors = require('colors');
 const express = require('express');
@@ -7,11 +9,12 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const config = require('../../tools/webpack/app').development;
+/* eslint-enable */
 
 debug(colors.yellow('Using webpack-dev-middleware'));
 
 // Don't bail in dev server.
-config.forEach(c => (c.bail = false));
+config.forEach(c => { c.bail = false; });
 
 const router = express.Router();
 const compiler = webpack(config);
@@ -29,7 +32,7 @@ router.use(
 );
 router.use(
   webpackHotMiddleware(
-    compiler.compilers.find(c => c.name === 'client'),
+    compiler.compilers.find(_compiler => _compiler.name === 'client'),
     {
       log: () => {},
     },

@@ -24,6 +24,7 @@ const UserSchema = new Schema({
 /**
  * Virtuals
  */
+/* eslint-disable */
 UserSchema
   .virtual('password')
   .set(function (password) {
@@ -41,6 +42,7 @@ UserSchema
       role: this.role,
     };
   });
+/* eslint-disable */
 
 /**
  * Validations

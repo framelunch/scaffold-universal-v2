@@ -2,11 +2,13 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 
-import * as users from './users';
+import * as loading from './loading';
+import * as popup from './popup';
 import * as signIn from './signIn';
 
+import type { LoadingState } from './loading';
+import type { PopupState } from './popup';
 import type { SignInState } from './signIn';
-import type { UsersState } from './users';
 
 export type Action = {
   type: string,
@@ -15,28 +17,26 @@ export type Action = {
   error: boolean,
 };
 export type AppState = {
+  loading: LoadingState,
+  popup: PopupState,
   signIn: SignInState,
-  users: UsersState
 };
 
-export const STATUS_READY = 0;
-export const STATUS_PROGRESS = 1;
-export const STATUS_CANCELED = 3;
-export const STATUS_PROBLEM = 4;
-export const STATUS_FINISHED = 9;
-
-export const initStore = (stateData: any) => (
-  createStore(
+export default function (stateData: any) {
+  return createStore(
     combineReducers({
-      users: users.reducer,
-      signIn: signIn.reducer,
+      token: (token = null) => token,
+      load: loading.reducers,
+      popup: popup.reducers,
+      signIn: signIn.reducers,
     }),
     stateData,
     applyMiddleware(createEpicMiddleware(
       combineEpics(
+        ...loading.epics,
+        ...popup.epics,
         ...signIn.epics,
-        ...users.epics,
       ),
     )),
-  )
-);
+  );
+}

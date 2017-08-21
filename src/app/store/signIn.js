@@ -1,8 +1,8 @@
 // @flow
 import cookie from 'js-cookie';
 import { createAction, handleActions } from 'redux-actions';
-import { signIn, getMe } from '../helpers/fetches';
-import { STATUS_READY, STATUS_PROGRESS, STATUS_FINISHED } from './';
+import { signIn, getMe } from '../fetches';
+import { STATUS_READY, STATUS_PROGRESS, STATUS_FINISHED } from '../../etc/define';
 
 import type { Action } from './';
 import type { User } from './users';
@@ -61,7 +61,7 @@ export const epics = [
   ),
 ];
 
-export const reducer = handleActions({
+export const reducers = handleActions({
   [SIGNIN_INIT]: () => ({
     status: STATUS_READY,
   }),

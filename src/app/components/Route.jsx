@@ -1,49 +1,46 @@
 // @flow
 import anime from 'animejs';
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { state, getTargetRoute } from './RoutePublisher';
+import { state, getTargetRoute, isMatch } from './RoutePublisher';
 
 type RouteProps = {
-  route: string,
+  target: string,
   component: any,
 };
-type RouteState = {
-  isHide: boolean
-};
 
-class Route extends React.Component<void, RouteProps, RouteState> {
-  state: RouteState;
+class Route extends React.Component<void, RouteProps, void> {
   container: HTMLElement & { style: any };
+  isShow: boolean;
+  isAnimation: boolean;
+  onChange: () => void;
   onAdd: () => void;
-  onRemove: ()=> void;
+  onRemove: () => void;
 
-  constructor(props) {
+  constructor(props: RouteProps) {
     super(props);
+    this.isShow = isMatch(this.props.target);
+    this.isAnimation = this.isShow;
     this.onAdd = this.onAdd.bind(this);
     this.onRemove = this.onRemove.bind(this);
-
-    const { route } = this.props;
-    const { target } = getTargetRoute() || {};
-    this.state = { isHide: target.indexOf(route) === -1 };
   }
   componentDidMount() {
-    const { route } = this.props;
-    state.listen(`add:${route}`, this.onAdd);
-    state.listen(`remove:${route}`, this.onRemove);
+    const { target } = this.props;
+    state.listen(`add:${target}`, this.onAdd);
+    state.listen(`remove:${target}`, this.onRemove);
   }
   componentWillUnmount() {
-    const { route } = this.props;
-    state.clear(`add:${route}`, this.onAdd);
-    state.clear(`remove:${route}`, this.onRemove);
+    const { target } = this.props;
+    state.clear(`add:${target}`, this.onAdd);
+    state.clear(`remove:${target}`, this.onRemove);
   }
 
   onAdd() {
-    if (!this.state.isHide) return;
+    if (this.isAnimation) return;
 
-    this.setState({ isHide: false });
+    this.isAnimation = true;
     this.container.style.opacity = 0;
     this.container.style.transform = 'translateY(10px)';
+    this.container.style.display = '';
 
     state.wait();
     anime({
@@ -64,20 +61,31 @@ class Route extends React.Component<void, RouteProps, RouteState> {
       duration: 200,
       easing: 'easeOutQuad',
     }).finished.then(() => {
-      this.setState({ isHide: true });
+      this.container.style.display = 'none';
+      this.isAnimation = false;
+      this.isShow = false;
+      this.forceUpdate();
+
       state.notify();
     });
   }
 
   render() {
-    if (this.state.isHide) return null;
+    if (!this.isShow) {
+      this.isShow = isMatch(this.props.target);
+      if (!this.isShow) return null;
+    }
+
+    const display = this.isAnimation ? null : 'none';
+    const { target } = this.props;
+    const { match } = getTargetRoute();
 
     return (
-      <div ref={elm => (this.container = elm)}>
-        { React.createElement(this.props.component, { route: this.props.route }) }
+      <div ref={elm => { this.container = elm; }} style={{ display }}>
+        {React.createElement(this.props.component, { target, match })}
       </div>
     );
   }
 }
 
-export default withRouter(Route);
+export default Route;

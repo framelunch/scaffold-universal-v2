@@ -11,8 +11,8 @@ const validateJwt = expressJwt({ secret: TOKEN_SECRET });
  * Attaches the user object to the request if authenticated
  * Otherwise returns 403
  */
-exports.verify = function () {
-  return compose()
+exports.verify = () => (
+  compose()
     .use((req, res, next) => {
       // allow access_token to be passed through query parameter as well
       if (req.query && Object.prototype.hasOwnProperty.call(req.query, 'access_token')) {
@@ -23,26 +23,26 @@ exports.verify = function () {
     .use((err, req, res, next) => {
       if (err) return res.status(401).send(err.name);
       return next(req, res, next);
-    });
-};
-exports.isAuthenticated = function () {
-  return compose()
+    })
+);
+exports.isAuthenticated = () => (
+  compose()
     .use(exports.verify())
     .use((req, res, next) => {
-      User.findById(req.user._id, (err, user) => {
+      User.findById(req.user._id, '-salt -hashedPassword -emailActivate', (err, user) => {
         if (err) return next(err);
         if (!user) return res.sendStatus(401);
 
         req.user = user;
         return next();
       });
-    });
-};
+    })
+);
 
 /**
  * Checks if the user role meets the minimum requirements of the route
  */
-exports.hasRole = function (roleRequired) {
+exports.hasRole = roleRequired => {
   if (!roleRequired) throw new Error('Required role needs to be set');
   return compose()
     .use(exports.isAuthenticated())
@@ -58,32 +58,32 @@ exports.hasRole = function (roleRequired) {
 /**
  * For activation, to change email
  */
-exports.sign = function (obj, expire) {
-  return jwt.sign(
+exports.sign = (obj, expire) => (
+  jwt.sign(
     obj,
     TOKEN_SECRET,
-    { expiresIn: expire || TOKEN_EXPIRE },
-  );
-};
+    { expiresIn: expire || parseInt(TOKEN_EXPIRE, 10) },
+  )
+);
 
 /**
  * Returns a jwt token signed by the app secret
  */
-exports.signToken = function (id, role) {
+exports.signToken = (id, role) => (
   /**
    * Tokenに有効期限を持たせないようにしている
    */
-  return jwt.sign(
+  jwt.sign(
     { _id: id, role },
     TOKEN_SECRET,
-    { expiresIn: TOKEN_EXPIRE },
-  );
-};
+    { expiresIn: parseInt(TOKEN_EXPIRE, 10) },
+  )
+);
 
 /**
  * Set token cookie directly for oAuth strategies
  */
-exports.setTokenCookie = function (req, res) {
+exports.setTokenCookie = (req, res) => {
   if (!req.user) {
     return res.status(404).json({ message: 'Something went wrong, please try again.' });
   }

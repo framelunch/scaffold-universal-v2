@@ -13,7 +13,7 @@ try {
   serverRenderer = require(SERVER_RENDERER_PATH).default;
 } catch (ex) {
   throw new Error(
-    `Server bundle not found at ${SERVER_RENDERER_PATH}. Try running \`npm run build\``
+    `Server bundle not found at ${SERVER_RENDERER_PATH}. Try running \`yarn build\``
   );
 }
 
@@ -21,7 +21,7 @@ try {
   stats = require(STATS_PATH);
 } catch (ex) {
   throw new Error(
-    `Client stats not found at ${STATS_PATH}. Try running \`npm run build\``
+    `Client stats not found at ${STATS_PATH}. Try running \`yarn build\``
   );
 }
 

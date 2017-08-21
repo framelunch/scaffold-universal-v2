@@ -13,7 +13,7 @@ module.exports = {
   },
 
   view: {
-    src: ['src/views/**/*.ejs', '!src/views/**/_*'],
+    src: ['src/views/**/*.ejs', '!src/views/**/_*', '!src/views/index.ejs'],
     watch: ['src/views/**/*.ejs'],
     rename(path) {
       if (path.basename !== 'index') {
@@ -50,7 +50,7 @@ module.exports = {
   webpack: {
     app: {
       src: path.join(__dirname, '../src/app'),
-      dist: path.join(__dirname, '../build/app'),
+      dist: path.join(__dirname, '../build/'),
       defaults: {
         name: '',
         revision: false,
@@ -88,7 +88,7 @@ module.exports = {
       'src/config/**/*',
       'src/auth/**/*',
       'src/api/**/*',
-      'src/helpers/**/*'
-    ]
+      'src/graphql/**/*'
+    ],
   }
 };

@@ -1,7 +1,7 @@
 // @flow
 import { createAction, handleActions } from 'redux-actions';
-import { getUsers } from '../helpers/fetches';
-import { STATUS_FINISHED } from './index';
+import { getUsers } from '../fetches';
+import { STATUS_FINISHED } from '../../etc/define';
 
 import type { Action } from './';
 
@@ -29,7 +29,7 @@ export function fetchUsers({ dispatch, getState }: any) {
 
 export const epics = [];
 
-export const reducer = handleActions({
+export const reducers = handleActions({
   [USERS_RESULT]: (state: UsersState, action: Action): UsersState => ({
     status: STATUS_FINISHED,
     data: [

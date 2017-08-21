@@ -82,6 +82,8 @@ yarn start
 |    |- /assets/            # 画像など静的リソース
 |    |- /auth/              # 認証系のAPI
 |    |- /etc                # 定数定義ファイル、ヘルパーモジュールなどを格納
+|    |- /file/              # uploadファイル
+|    |- /graphql/           # GraphQL
 |    |- /libs/              # オリジナルライブラリ群
 |    |- /models/            # mongooseのモデルスキーマ
 |    |- /public/            # 静的ファイル置き場

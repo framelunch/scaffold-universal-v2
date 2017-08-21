@@ -12,7 +12,7 @@ import Footer from './containers/Footer';
 
 import RoutePublisher from './components/RoutePublisher';
 import Route from './components/Route';
-import routeConfig from './route-config';
+import routeConfig from './routes';
 
 import Top from './containers/Top';
 import Users from './containers/Users';

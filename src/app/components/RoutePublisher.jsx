@@ -2,21 +2,9 @@
 import React from 'react';
 import { withRouter, Redirect, matchPath } from 'react-router-dom';
 import State from '../../libs/core/State';
+import looptime from '../../libs/utils/looptime';
 
-export type RouteData = {
-  path: string,
-  target: string,
-  fetches?: Array<any> | null,
-  match?: any
-};
-export type RouteDataList = Array<RouteData>;
-
-export type FetchRouteResult = {
-  route?: RouteData,
-  match?: any
-};
-
-export function fetchRoute(url: string, routes: RouteDataList): FetchRouteResult {
+export function fetchRoute(url: string, routes: Array<any>): any {
   let i = 0;
   const l = routes.length;
 
@@ -30,36 +18,49 @@ export function fetchRoute(url: string, routes: RouteDataList): FetchRouteResult
   return {};
 }
 
-let targetRoute = null;
-export function getTargetRoute(): RouteData | null {
+let targetRoute = {};
+export function getTargetRoute(): any {
   return targetRoute;
+}
+export function isMatch(target: string): boolean {
+  const { route } = targetRoute;
+  return (route ? route.target : '').indexOf(target) > -1;
 }
 
 export const state = State();
 
 type RoutePublisherProps = {
   location: any,
-  routes: RouteDataList,
   store: any,
-  children: Array<any>
+  routes: Array<any>,
+  children: Array<any>,
 };
 
-const RoutePublisher = ({ location, routes, store, children }: RoutePublisherProps) => {
-  const { route, match } = fetchRoute(location.pathname, routes);
+class RoutePublisher extends React.Component<void, RoutePublisherProps, void> {
+  componentWillMount() {
 
-  if (route) {
-    // route-configで定義されているfetchesはここに集約する
-    // FIXME: tokenをどうやって渡そうかな -> state.signIn.tokenに保持する
-    const fetches = route.fetches || [];
-    fetches.map(fetch => fetch(store, match));
-
-    targetRoute = route;
-    state.change(route.target, [match]);
-    return <div>{children}</div>;
   }
+  render() {
+    const { location, routes, store, children } = this.props;
+    const { route, match } = fetchRoute(location.pathname, routes);
 
-  targetRoute = routes[0];
-  return <Redirect to={targetRoute.path} />;
-};
+    if (route) {
+      if (targetRoute.path !== route.path) {
+        targetRoute = { route, match };
+        state.change(route.target, [targetRoute]);
+
+        setTimeout(() => {
+          // route-configで定義されているfetchesはここに集約する
+          const fetches = route.fetches || [];
+          fetches.map(fetch => fetch(store, match));
+        }, looptime);
+      }
+      return <div>{children}</div>;
+    }
+
+    targetRoute = { route: routes[0], match };
+    return <Redirect to={targetRoute.route.path} />;
+  }
+}
 
 export default withRouter(RoutePublisher);

@@ -1,7 +1,6 @@
 const User = require('../../models/User');
 const { signToken } = require('../../auth/auth.service');
 const { activate } = require('../../etc/mail');
-const optimizeQuery = require('../../libs/utils/optimizeQuery');
 
 function _getID({ params, user }) {
   return (params && params.id) || (user && user._id) || null;
@@ -15,22 +14,11 @@ function _getQuery({ query }) {
   ) || {};
 }
 
-exports.getUsers = function (req, res) {
-  const query = _getQuery(req);
-  const sort = query.sort || '-_id';
-  const select = query.select || '-salt -hashedPassword -emailActivate -facebook -twitter -google';
-  const limit = parseInt(query.limit || 100, 10);
-  const page = parseInt(query.page || 0, 10);
-  const skip = page ? (page - 1) * limit : parseInt(query.skip || 0, 10);
-
-  delete query.sort;
-  delete query.page;
-  delete query.skip;
-  delete query.select;
-  delete query.limit;
+exports.getUsers = (req, res) => {
+  const { query, sort, select, limit, skip } = req.mongo;
 
   User
-    .find(optimizeQuery(query))
+    .find(query)
     .select(select)
     .sort(sort)
     .limit(limit)
@@ -49,7 +37,7 @@ exports.getUsers = function (req, res) {
     });
 };
 
-exports.createUser = function (req, res) {
+exports.createUser = (req, res) => {
   const newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
@@ -62,7 +50,7 @@ exports.createUser = function (req, res) {
   });
 };
 
-exports.activateUser = function (req, res, next) {
+exports.activateUser = (req, res, next) => {
   if (req.user.emailActivate) {
     res.sendStatus(200);
   } else {
@@ -74,7 +62,7 @@ exports.activateUser = function (req, res, next) {
   }
 };
 
-exports.getUser = function (req, res, next) {
+exports.getUser = (req, res, next) => {
   const id = _getID(req);
   if (!id) {
     res.sendStatus(401);

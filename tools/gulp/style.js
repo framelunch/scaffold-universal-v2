@@ -6,8 +6,7 @@ const customProperties = require('postcss-custom-properties');
 const nested = require('postcss-nested');
 const importCss = require('postcss-import');
 const customMedia = require('postcss-custom-media');
-const flexbugsFixes = require('postcss-flexbugs-fixes');
-const nthChildFix = require('postcss-nth-child-fix');
+const fixes = require('postcss-fixes');
 const url = require('postcss-url');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
@@ -28,8 +27,7 @@ gulp.task('style', () => (
       customProperties,
       customMedia,
       nested,
-      flexbugsFixes,
-      nthChildFix,
+      fixes,
       url(urlOptions),
       autoprefixer,
     ]))
@@ -44,8 +42,7 @@ gulp.task('b.style', () => (
       customProperties,
       customMedia,
       nested,
-      flexbugsFixes,
-      nthChildFix,
+      fixes,
       autoprefixer,
       cssnano,
     ]))

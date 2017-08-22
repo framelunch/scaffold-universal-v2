@@ -1,0 +1,61 @@
+<%
+const conf = {
+    title : 'SIGN IN | MARUTO',
+    description : 'race management tool',
+    keywords: 'hihin,rmt,maruto',
+    style: ['default.css', 'signin.css'],
+    script: ['vendor.script.js', 'signin.js']
+};
+%>
+
+<% include _head.ejs %>
+
+<section class="Signin_Main">
+    <h1 class="yellow-dark font-bold h3 txt-center mt20">
+        Scaffold Universal Sign In
+    </h1>
+</section>
+
+<section class="Signin_Form">
+    <div class="mod-Container">
+        <span class="mod-Separation mt20 mb20"></span>
+
+        <div class="Signin_FormTable">
+            <table>
+                <tr>
+                    <th class="yellow-dark h3">ID</th>
+                    <td>
+                        <input id="email"
+                               class="input w100per"
+                               placeholder="Please input your email address..."
+                               data-field="email"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="yellow-dark h3">PASS</th>
+                    <td>
+                        <input id="pass"
+                               type="password"
+                               class="input w100per"
+                               placeholder="Please input your password..."
+                               data-field="password"
+                        />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <span class="mod-Separation mt20 mb20"></span>
+
+        <div class="txt-right">
+            <button id="login-bt" class="btn btn-l btn-primary w100per">
+                LOGIN
+            </button>
+        </div>
+
+        <span class="mod-Separation-double mt20 mb20"></span>
+    </div>
+</section>
+
+<% include _foot.ejs %>

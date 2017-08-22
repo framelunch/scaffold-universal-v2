@@ -13,7 +13,7 @@ const isGUI = process.env.NODE_ENV === 'development';
 const rootSchema = `
 type Query {
   me: User
-  users: [User]
+  userList(limit: Int, page: Int, sort: String): [User]!
 }
 type Mutation {
   signIn(input: SignInInput): String
@@ -26,7 +26,7 @@ const root = {
       .findById(req.user._id, '-salt -hashedPassword -emailActivate')
       .then(data => data);
   },
-  users({ query = {}, limit = 100, page = 0, sort = '_id' }) {
+  userList({ query = {}, limit = 100, page = 0, sort = '-_id' }) {
     return User
       .find(query)
       .sort(sort)
@@ -37,7 +37,7 @@ const root = {
   },
 };
 
-router.all('/', verify(), graphqlHTTP({
+router.all('/', graphqlHTTP({
   schema: buildSchema(schema + rootSchema),
   rootValue: root,
   graphiql: isGUI,

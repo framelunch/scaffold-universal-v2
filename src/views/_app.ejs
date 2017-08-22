@@ -1,17 +1,6 @@
-<% include ../views/_head.ejs %>
+<% include _head.ejs %>
 
 <div id="app"><%- component %></div>
-<script>
-    // 環境変数のUniversal
-    window.process = {
-      env: {
-        NODE_ENV: '<%-process.env.NODE_ENV%>',
-        DOMAIN: '<%-process.env.DOMAIN%>',
-        COOKIE_LOGIN_TOKEN: '<%-process.env.COOKIE_LOGIN_TOKEN%>'
-      }
-    };
+<script id="initial-data" type="text/plain" data-text='<%- appState %>'></script>
 
-</script>
-<script id="initial-data" type="text/plain" data-json='<%- appState %>'></script>
-
-<% include ../views/_foot.ejs %>
+<% include _foot.ejs %>

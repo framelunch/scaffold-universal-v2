@@ -1,6 +1,6 @@
 // @flow
 import { createAction, handleActions } from 'redux-actions';
-import { getUsers } from '../fetches';
+import { graphql } from '../fetches';
 import { STATUS_FINISHED } from '../../etc/define';
 
 import type { Action } from './';
@@ -22,7 +22,12 @@ export const usersResult = createAction(USERS_RESULT, (users: Users): Users => u
 export function fetchUsers({ dispatch, getState }: any) {
   const { users } = getState();
   if (users.status !== STATUS_FINISHED) {
-    return getUsers().then(result => dispatch(usersResult(result)));
+    return graphql(`
+    query($limit: Int, $page: Int, $sort: String) {
+      userList(limit: $limit, page: $page, sort: $sort){ _id, name }
+    }
+    `, { limit: 100, page: 0, sort: '-_id' })
+      .then(({ data: { userList } }) => dispatch(usersResult(userList)));
   }
   return null;
 }

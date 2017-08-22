@@ -14,7 +14,7 @@ const Top = () => (
       <meta property="og:description" content="Top page" />
     </Helmet>
 
-    <div className={style.SignIn}>
+    <div className={style.Top}>
       <h1 className="h1 mt20">TOP PAGE</h1>
       <div className="mt20 mb20">
         <p>top page</p>

@@ -115,6 +115,7 @@ UserSchema.methods = {
    * @return {Boolean}
    * @api public
    */
+  // auth.serviceのlocalストラテジで使用
   authenticate(plainText) {
     return this.encryptPassword(plainText) === this.hashedPassword;
   },

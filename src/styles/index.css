@@ -1,0 +1,31 @@
+@import "_variables.css";
+
+body {
+    background: var(--black);
+}
+
+.Index {
+    &_SignIn {
+        width: 100%;
+        max-width: 400px;
+        margin: 30px auto;
+
+        @media (--sp) {
+            max-width: 100%;
+        }
+    }
+
+    &_FormTable {
+        table {
+            width: 100%;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        th,td {
+            padding: 10px 0;
+        }
+    }
+}

@@ -16,8 +16,6 @@ import routeConfig from './routes';
 
 import Top from './containers/Top';
 import Users from './containers/Users';
-import SignIn from './containers/SignIn';
-
 
 type AppProps = {
   store: any
@@ -43,9 +41,8 @@ export default class App extends React.Component<void, AppProps, void> {
 
           <Header />
 
-          <Route component={Top} route="top" />
-          <Route component={Users} route="users" />
-          <Route component={SignIn} route="signin" />
+          <Route component={Top} target="top" />
+          <Route component={Users} target="users" />
 
           <Footer />
         </RoutePublisher>

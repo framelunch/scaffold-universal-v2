@@ -76,7 +76,19 @@ class Header extends React.Component<void, SignInProps, void> {
           <div>
             <ul className={style.Menu}>
               <li className={style.Menu_Item}>
-                {sign}
+                <button
+                  className={`btn ${style.Menu_Target}`}
+                  role="menuitem"
+                  tabIndex={0}
+                  onClick={onSignOut}
+                >
+                  <span>
+                    <img src="/assets/svg/icon_logout.svg" alt="print" />
+                    <div className="mt10 h4 yellow-dark marcellus">
+                      Sign Out
+                    </div>
+                  </span>
+                </button>
               </li>
             </ul>
           </div>

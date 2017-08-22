@@ -58,7 +58,7 @@ export default ({ clientStats }: any) => {
 
   return (req: any, res: any) => {
     // TODO: tokenがcookieに依存しているのがuniversalっぽくないな。。
-    // tokenがない場合は、index.ejs（login）を表示する。ある場合はstoreに格納
+    // tokenがない場合は、index.ejs（Signup）を表示する。ある場合はstoreに格納
     const token = req.cookies[COOKIE_LOGIN_TOKEN];
     if (!token) return res.render('index');
 
@@ -74,9 +74,15 @@ export default ({ clientStats }: any) => {
     initFetch(store);
 
     // return getMe().then(result => {
-    graphql('query { me { _id, name } }').then(result => {
-      if (isAdmin && result.role !== 'admin') return res.redirect('/');
-      if (result instanceof Error) store.dispatch(signIn(result.data.me));
+    return graphql('query { me { _id, name } }').then(result => {
+      // meが取得できない場合はsigninページへリダイレクト
+      if (result instanceof Error) return res.redirect('/signin');
+
+      // Adminのページへのアクセスで自身がAdminではない場合はTOPへリダイレクト
+      const me = result.data.me;
+      if (isAdmin && me.role !== 'admin') return res.redirect('/');
+
+      store.dispatch(signIn(me));
 
       return Promise
         .all(fetches.map(fetch => fetch(store, match)))

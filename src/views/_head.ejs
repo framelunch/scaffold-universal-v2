@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
 
-    <% if (conf.isApp) { %><%- conf.title %><%- conf.meta %><% } else { %>
+    <% if (conf.isApp) { %>
+    <%- conf.title %><%- conf.meta %>
+    <% } else { %>
 
     <title><%= conf.title %></title>
     <meta name="description" content="<%= conf.description %>">

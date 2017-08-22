@@ -61,9 +61,9 @@ export function graphql(query, variables) {
   });
 }
 
-// TODO: GraphQLに差し替え
+// FIXME: GraphQLに差し替え
 /**
- * Fetch List
+ * Fetch List （RESTの参考用に一応残しておく）
  */
 const USERS_ME = `${DOMAIN}/api/users/me`;
 
